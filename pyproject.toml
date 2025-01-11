@@ -30,6 +30,11 @@ extend-exclude = ["migrations"]
 preview = true
 select = ["I", "F", "E", "W", "PL", "PT"]
 
+[tool.pytest.ini_options]
+pythonpath = "."
+addopts = '-p no:warnings'
+
+
 
 
 
