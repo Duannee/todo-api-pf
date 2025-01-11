@@ -36,7 +36,9 @@ select = ["I", "F", "E", "W", "PL", "PT"]
 
 [tool.taskipy.tasks]
 run = "fastapi dev todo_list_pf/app.py"
+pre_test = "task lint"
 test = "pytest --cov=todo_list_pf -vv"
+post_test = "coverage html"
 lint = "ruff check . && ruff check . --diff"
 format = "ruff check . --fix && ruff format ."
 
