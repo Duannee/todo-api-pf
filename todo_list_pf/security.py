@@ -1,9 +1,8 @@
 from datetime import datetime, timedelta
-import pytz
 
+import pytz
 from jwt import encode
 from pwdlib import PasswordHash
-
 
 SECRET_KEY = "0b4b3c1e-0d1e-4f6f-8a7b-2e1f3d7e5c1d"
 ALGORITHM = "HS256"
