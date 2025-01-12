@@ -17,12 +17,14 @@ class EnumStatus(str, Enum):
 class User:
     __tablename__ = "users"
     id: Mapped[int] = mapped_column(init=False, primary_key=True)
-    username: Mapped[str] = mapped_column(unique=True)
-    password: Mapped[str]
-    email: Mapped[str] = mapped_column(unique=True)
-    created_at: Mapped[datetime] = mapped_column(init=False, server_default=func.now())
+    username: Mapped[str] = mapped_column(unique=True, nullable=False)
+    password: Mapped[str] = mapped_column(nullable=False)
+    email: Mapped[str] = mapped_column(unique=True, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        init=False, server_default=func.now(), nullable=False
+    )
     updated_at: Mapped[datetime] = mapped_column(
-        init=False, server_default=func.now(), onupdate=func.now()
+        init=False, server_default=func.now(), onupdate=func.now(), nullable=False
     )
 
 
