@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr
+from todo_list_pf.models import EnumStatus
 
 
 class UserSchema(BaseModel):
@@ -15,3 +16,9 @@ class UserPublicSchema(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str
+
+
+class TodoSchema(BaseModel):
+    title: str
+    description: str
+    status: EnumStatus
