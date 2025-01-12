@@ -7,6 +7,9 @@ slides/brutos/*.html
 *.db
 *.bd
 
+
+.env
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -70,6 +73,8 @@ cover/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+db.sqlite 
+
 
 # Flask stuff:
 instance/
