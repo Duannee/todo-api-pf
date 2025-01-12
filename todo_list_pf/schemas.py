@@ -22,3 +22,7 @@ class TodoSchema(BaseModel):
     title: str
     description: str
     status: EnumStatus
+
+
+class TodoPublicSchema(TodoSchema):
+    id: int
