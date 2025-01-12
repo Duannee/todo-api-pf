@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from todo_list_pf.database import get_session
 from todo_list_pf.models import User
 from todo_list_pf.schemas import UserPublicSchema, UserSchema
+from todo_list_pf.security import get_password_hash
 
 router = APIRouter(prefix="/users", tags=["users"])
 
@@ -33,7 +34,11 @@ def create_user(user: UserSchema, session: T_Session):
                 detail="Email already registered",
             )
 
-    db_user = User(username=user.username, password=user.password, email=user.email)
+    db_user = User(
+        username=user.username,
+        password=get_password_hash(user.password),
+        email=user.email,
+    )
 
     session.add(db_user)
     session.commit()
