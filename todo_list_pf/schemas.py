@@ -18,11 +18,11 @@ class Token(BaseModel):
     token_type: str
 
 
-class TodoSchema(BaseModel):
+class TaskSchema(BaseModel):
     title: str
     description: str
     status: EnumStatus
 
 
-class TodoPublicSchema(TodoSchema):
+class TaskPublicSchema(TaskSchema):
     id: int
