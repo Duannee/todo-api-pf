@@ -28,13 +28,14 @@ pytest = "^8.3.4"
 pytest-cov = "^6.0.0"
 taskipy = "^1.14.1"
 ruff = "^0.9.1"
+pytest-factoryboy = "^2.7.0"
 
 [tool.pytest.ini_options]
 pythonpath = "."
 addopts = '-p no:warnings'
 
 [tool.ruff]
-line-length = 79
+line-length = 90
 extend-exclude = ["migrations"]
 
 [tool.ruff.lint]
