@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr
+
 from todo_list_pf.models import EnumStatus
 
 
@@ -28,5 +29,5 @@ class TaskSchema(BaseModel):
     status: EnumStatus
 
 
-class TaskPublicSchema(TaskSchema):
+class TaskPublic(TaskSchema):
     id: int
