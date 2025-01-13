@@ -1,6 +1,7 @@
-from pydantic import BaseModel, EmailStr
 from datetime import datetime
 from typing import Optional
+
+from pydantic import BaseModel, EmailStr
 
 from todo_list_pf.models import EnumStatus
 
@@ -45,7 +46,3 @@ class TaskUpdate(BaseModel):
     title: Optional[str] | None = None
     description: Optional[str] | None = None
     state: Optional[EnumStatus] | None = None
-
-
-class message(BaseModel):
-    message: str
