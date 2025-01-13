@@ -1,20 +1,18 @@
 from datetime import datetime, timedelta
-from sqlalchemy.orm import Session
-from fastapi import Depends, HTTPException
-from todo_list_pf.database import get_session
 from http import HTTPStatus
-from todo_list_pf.models import User
-from sqlalchemy import select
 
-
-from fastapi.security import OAuth2PasswordBearer
 import pytz
-from jwt import encode
+from fastapi import Depends, HTTPException
+from fastapi.security import OAuth2PasswordBearer
+from jwt import DecodeError, ExpiredSignatureError, decode, encode
 from pwdlib import PasswordHash
+from sqlalchemy import select
+from sqlalchemy.orm import Session
 
-from jwt import decode, DecodeError
-from todo_list_pf.settings import Settings
+from todo_list_pf.database import get_session
+from todo_list_pf.models import User
 from todo_list_pf.schemas import TokenData
+from todo_list_pf.settings import Settings
 
 settings = Settings()
 
@@ -64,6 +62,8 @@ def get_current_user(
             raise credentials_exception
         token_data = TokenData(username=username)
     except DecodeError:
+        raise credentials_exception
+    except ExpiredSignatureError:
         raise credentials_exception
 
     user = session.scalar(select(User).where(User.email == token_data.username))
