@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
-from todo_list_pf.settings import Settings
+from src.apps.core.settings import Settings
 
 engine = create_engine(Settings().DATABASE_URL)
 
