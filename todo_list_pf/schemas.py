@@ -31,3 +31,7 @@ class TaskSchema(BaseModel):
 
 class TaskPublic(TaskSchema):
     id: int
+
+
+class TaskList(BaseModel):
+    tasks: list[TaskPublic]
