@@ -1,29 +1,9 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
 
-from todo_list_pf.models import EnumStatus
-
-
-class UserSchema(BaseModel):
-    username: str
-    email: EmailStr
-    password: str
-
-
-class UserPublicSchema(BaseModel):
-    id: int
-    username: str
-
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str
-
-
-class TokenData(BaseModel):
-    username: str
+from src.apps.tasks.models import EnumStatus
 
 
 class TaskSchema(BaseModel):

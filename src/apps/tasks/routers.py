@@ -4,15 +4,15 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from todo_list_pf.database import get_session
-from todo_list_pf.models import EnumStatus, Task
-from todo_list_pf.schemas import (
+from src.apps.core.database import get_session
+from src.apps.core.security import get_current_user
+from src.apps.tasks.models import EnumStatus, Task
+from src.apps.tasks.schemas import (
     TaskList,
     TaskPublic,
     TaskSchema,
     TaskUpdate,
 )
-from todo_list_pf.security import get_current_user
 
 router = APIRouter(prefix="/tasks", tags=["tasks"])
 
@@ -113,5 +113,3 @@ def delete_task(task_id: int, session: T_Session, user: T_User):
 
     session.delete(task)
     session.commit()
-
-    return None

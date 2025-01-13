@@ -6,7 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 
 from todo_list_pf.models import register_metadata
-from todo_list_pf.settings import Settings
+from src.apps.core.settings import Settings
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

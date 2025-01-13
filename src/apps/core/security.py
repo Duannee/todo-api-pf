@@ -9,10 +9,10 @@ from pwdlib import PasswordHash
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from todo_list_pf.database import get_session
-from todo_list_pf.models import User
-from todo_list_pf.schemas import TokenData
-from todo_list_pf.settings import Settings
+from src.apps.auth.schemas import TokenData
+from src.apps.core.database import get_session
+from src.apps.core.settings import Settings
+from src.apps.users.models import User
 
 settings = Settings()
 
