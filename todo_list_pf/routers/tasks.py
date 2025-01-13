@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
 
 from todo_list_pf.schemas import TaskSchema, TaskPublic, TaskList
@@ -16,7 +16,7 @@ T_Session = Annotated[Session, Depends(get_session)]
 T_User = Annotated[Session, Depends(get_current_user)]
 
 
-@router.post("/", response_model=TaskPublic)
+@router.post("/", response_model=TaskPublic, status_code=status.HTTP_201_CREATED)
 def create_task(task: TaskSchema, session: T_Session, user: T_User):
     db_task = Task(
         title=task.title,
@@ -49,3 +49,17 @@ def list_tasks(
     tasks = session.scalars(query.offset(offset).limit(limit)).all()
 
     return {"tasks": tasks}
+
+
+@router.get("/{task_id}", response_model=TaskPublic)
+def get_task_id(task_id: int, session: T_Session, user: T_User):
+    query = select(Task).where(Task.id == task_id, Task.user_id == user.id)
+    task = session.scalars(query).first()
+
+    if not task:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Task not found or does not belong to you",
+        )
+
+    return task
