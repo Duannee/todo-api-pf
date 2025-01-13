@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
 
-from todo_list_pf.schemas import TaskSchema, TaskPublic, TaskList
+from todo_list_pf.schemas import TaskSchema, TaskPublic, TaskList, TaskUpdate
 from todo_list_pf.database import get_session
 from todo_list_pf.models import Task
 from todo_list_pf.security import get_current_user
@@ -63,3 +63,33 @@ def get_task_id(task_id: int, session: T_Session, user: T_User):
         )
 
     return task
+
+
+@router.patch("/{task_id}", response_model=TaskPublic)
+def update_task(task_id: int, task: TaskUpdate, session: T_Session, user: T_User):
+    db_task = session.scalar(
+        select(Task).where(Task.user_id == user.id, Task.id == task_id)
+    )
+
+    if not db_task:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Task not found",
+        )
+
+    update_data = task.model_dump(exclude_unset=True, exclude_none=True)
+
+    if not update_data:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="No fields to update",
+        )
+
+    for key, value in update_data.items():
+        setattr(db_task, key, value)
+
+    session.add(db_task)
+    session.commit()
+    session.refresh(db_task)
+
+    return db_task
