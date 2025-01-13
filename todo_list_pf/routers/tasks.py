@@ -1,14 +1,18 @@
+from typing import Annotated
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
-
-from todo_list_pf.schemas import TaskSchema, TaskPublic, TaskList, TaskUpdate
-from todo_list_pf.database import get_session
-from todo_list_pf.models import Task
-from todo_list_pf.security import get_current_user
-from typing import Annotated
 from sqlalchemy.orm import Session
-from todo_list_pf.models import EnumStatus
 
+from todo_list_pf.database import get_session
+from todo_list_pf.models import EnumStatus, Task
+from todo_list_pf.schemas import (
+    TaskList,
+    TaskPublic,
+    TaskSchema,
+    TaskUpdate,
+)
+from todo_list_pf.security import get_current_user
 
 router = APIRouter(prefix="/tasks", tags=["tasks"])
 
@@ -93,3 +97,21 @@ def update_task(task_id: int, task: TaskUpdate, session: T_Session, user: T_User
     session.refresh(db_task)
 
     return db_task
+
+
+@router.delete("/{task_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_task(task_id: int, session: T_Session, user: T_User):
+    task = session.scalar(
+        select(Task).where(Task.user_id == user.id, Task.id == task_id)
+    )
+
+    if not task:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Task not found",
+        )
+
+    session.delete(task)
+    session.commit()
+
+    return None
