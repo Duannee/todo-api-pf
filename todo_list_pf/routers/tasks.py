@@ -53,7 +53,7 @@ def list_tasks(
 
 @router.get("/{task_id}", response_model=TaskPublic)
 def get_task_id(task_id: int, session: T_Session, user: T_User):
-    query = select(Task).where(Task.id == task_id, Task.user_id == user.id)
+    query = select(Task).where(Task.user_id == user.id, Task.id == task_id)
     task = session.scalars(query).first()
 
     if not task:
