@@ -1,7 +1,6 @@
 from datetime import datetime
 from enum import Enum
 
-from sqlalchemy import Enum as SQLAlchemyEnum
 from sqlalchemy import ForeignKey, func
 from sqlalchemy.orm import Mapped, mapped_column, registry, relationship
 
