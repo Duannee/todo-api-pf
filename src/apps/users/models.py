@@ -3,8 +3,6 @@ from datetime import datetime
 from sqlalchemy import func
 from sqlalchemy.orm import Mapped, mapped_column, registry, relationship
 
-# from src.apps.tasks.models import Task
-
 register_metadata = registry()
 
 
@@ -21,11 +19,7 @@ class User:
     updated_at: Mapped[datetime] = mapped_column(
         init=False, server_default=func.now(), onupdate=func.now(), nullable=False
     )
-    # tasks: Mapped[list["Task"]] = relationship(
-    #     "Task", init=False, back_populates="user", cascade="all, delete-orphan"
-    # )
 
     @property
     def tasks(self):
-
         return relationship("Task", back_populates="user", cascade="all, delete-orphan")
