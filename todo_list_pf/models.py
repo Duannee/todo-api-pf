@@ -2,16 +2,16 @@ from datetime import datetime
 from enum import Enum
 
 from sqlalchemy import Enum as SQLAlchemyEnum
-from sqlalchemy import func
-from sqlalchemy.orm import Mapped, mapped_column, registry
+from sqlalchemy import ForeignKey, func
+from sqlalchemy.orm import Mapped, mapped_column, registry, relationship
 
 register_metadata = registry()
 
 
 class EnumStatus(str, Enum):
-    PENDING = "pending"
-    IN_PROGRESS = "in_progress"
-    COMPLETED = "completed"
+    pending = "pending"
+    in_progress = "in_progress"
+    complete = "completed"
 
 
 @register_metadata.mapped_as_dataclass
@@ -27,6 +27,9 @@ class User:
     updated_at: Mapped[datetime] = mapped_column(
         init=False, server_default=func.now(), onupdate=func.now(), nullable=False
     )
+    tasks: Mapped[list["Task"]] = relationship(
+        init=False, back_populates="user", cascade="all, delete-orphan"
+    )
 
 
 @register_metadata.mapped_as_dataclass
@@ -35,9 +38,9 @@ class Task:
     id: Mapped[int] = mapped_column(init=False, primary_key=True)
     title: Mapped[str] = mapped_column(nullable=False)
     description: Mapped[str] = mapped_column(nullable=True)
-    status: Mapped[EnumStatus] = mapped_column(
-        SQLAlchemyEnum(EnumStatus), nullable=False, default=EnumStatus.PENDING
-    )
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    user: Mapped[User] = relationship(init=False, back_populates="tasks")
+    status: Mapped[EnumStatus]
     created_at: Mapped[datetime] = mapped_column(
         init=False, server_default=func.now(), nullable=False
     )
