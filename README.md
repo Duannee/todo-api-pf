@@ -1,4 +1,5 @@
-# API de Gerenciamento de Tarefas (To-Do List)
+# *API de Gerenciamento de Tarefas (To-Do List)*
+[![NPM](https://img.shields.io/npm/l/react)](https://github.com/Duannee/todo-api-pf/blob/main/LICENSE)
 
 ---
 
