@@ -45,3 +45,7 @@ class TaskUpdate(BaseModel):
     title: Optional[str] | None = None
     description: Optional[str] | None = None
     state: Optional[EnumStatus] | None = None
+
+
+class message(BaseModel):
+    message: str
