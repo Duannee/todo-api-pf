@@ -17,9 +17,7 @@ T_Session = Annotated[Session, Depends(get_session)]
 @router.post("/", response_model=UserPublicSchema, status_code=status.HTTP_201_CREATED)
 def create_user(user: UserSchema, session: T_Session):
     db_user = session.scalar(
-        select(User).where(
-            (User.username == user.username) | (User.email == user.email)
-        )
+        select(User).where((User.username == user.username) | (User.email == user.email))
     )
 
     if db_user:
