@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr
+from datetime import datetime
 
 from todo_list_pf.models import EnumStatus
 
@@ -31,6 +32,8 @@ class TaskSchema(BaseModel):
 
 class TaskPublic(TaskSchema):
     id: int
+    created_at: datetime
+    updated_at: datetime
 
 
 class TaskList(BaseModel):
