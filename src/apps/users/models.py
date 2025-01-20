@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy import func
-from sqlalchemy.orm import Mapped, mapped_column, registry, relationship
+from sqlalchemy.orm import Mapped, declared_attr, mapped_column, registry, relationship
 
 register_metadata = registry()
 
@@ -20,6 +20,7 @@ class User:
         init=False, server_default=func.now(), onupdate=func.now(), nullable=False
     )
 
-    @property
-    def tasks(self):
+    @declared_attr
+    @classmethod
+    def tasks(cls):
         return relationship("Task", back_populates="user", cascade="all, delete-orphan")
