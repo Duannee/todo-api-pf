@@ -3,7 +3,7 @@ from typing import Optional
 
 from pydantic import BaseModel
 
-from src.apps.tasks.models import EnumStatus
+from src.apps.models import EnumStatus
 
 
 class TaskSchema(BaseModel):
