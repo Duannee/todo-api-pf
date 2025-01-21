@@ -5,7 +5,7 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from todo_list_pf.models import register_metadata
+from src.apps.models import register_metadata
 from src.apps.core.settings import Settings
 
 # this is the Alembic Config object, which provides
