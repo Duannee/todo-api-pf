@@ -1,8 +1,7 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, registry
 
 from src.apps.core.settings import Settings
-from sqlalchemy.orm import registry
 
 register_metadata = registry()
 
