@@ -100,9 +100,7 @@ def update_task(task_id: int, task: TaskUpdate, session: T_Session, user: T_User
 
 @router.delete("/{task_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_task(task_id: int, session: T_Session, user: T_User):
-    task = session.scalar(
-        select(Task).where(Task.user_id == user.id, Task.id == task_id)
-    )
+    task = session.scalar(select(Task).where(Task.user_id == user.id, Task.id == task_id))
 
     if not task:
         raise HTTPException(

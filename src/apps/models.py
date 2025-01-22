@@ -3,8 +3,7 @@ from enum import Enum
 from typing import List
 
 from sqlalchemy import ForeignKey, func
-from sqlalchemy.orm import Mapped, mapped_column, relationship, registry
-
+from sqlalchemy.orm import Mapped, mapped_column, registry, relationship
 
 register_metadata = registry()
 
