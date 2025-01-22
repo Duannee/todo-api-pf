@@ -24,7 +24,6 @@ def client(session):
 
 @pytest.fixture
 def session():
-    """Create an in-memory SQLite database for testing"""
     engine = create_engine(
         "sqlite:///:memory:",
         connect_args={"check_same_thread": False},
