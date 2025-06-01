@@ -101,7 +101,7 @@ task test
 
 ---
 
-## *Linting e Formatação**
+## *Linting e Formatação*
 A API utiliza Ruff como linter e o taskipy para simplificar a execução de comandos. Para rodar a verificação:
 ```
 task lint
